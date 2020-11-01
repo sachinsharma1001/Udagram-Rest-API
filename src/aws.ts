@@ -19,7 +19,7 @@ export const s3 = new AWS.S3({
  * @param key: string - the filename to be put into the s3 bucket
  * @Returns: a url as a string
  */
-export function getGetSignedUrl( key: string ): string{
+export function getGetSignedUrl(key: string): string{
   const signedUrlExpireSeconds = 60 * 5
 
   const url = s3.getSignedUrl('getObject', {
@@ -35,7 +35,7 @@ export function getGetSignedUrl( key: string ): string{
  * @param key: string - the filename to be retreived from s3 bucket
  * @Returns: a url as a string
  */
-export function getPutSignedUrl( key: string ){
+export function getPutSignedUrl(key: string){
   const signedUrlExpireSeconds = 60 * 5
 
   const url = s3.getSignedUrl('putObject', {
