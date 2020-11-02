@@ -28,7 +28,30 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 // update a specific resource
 router.patch('/:id', requireAuth, async (req: Request, res: Response) => {   
-    res.send(500).send("not implemented")
+    let id = req.params;
+    let{caption, url} =req.body;
+
+    if(!id) {
+        return res.status(400).send("Id is required");
+    }
+
+    if(!caption) {
+        return res.status(400).send("Caption is required");
+    }
+
+    if(!url) {
+        return res.status(400).send("Url is required");
+    }
+
+    const feedItem = await FeedItem.findByPk(id);
+    if(feedItem === null) {
+        return res.status(404).send("Resource with this id not found");
+    }
+
+    feedItem.caption = caption;
+    feedItem.url=url; 
+    feedItem.save();
+    res.status(200).send(feedItem);
 });
 
 
